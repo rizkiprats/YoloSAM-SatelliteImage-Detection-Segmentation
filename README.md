@@ -38,7 +38,7 @@ If you don't have Conda installed, download and install Miniconda from [here](ht
 Clone the repository using Git:
 
 ```bash
-git clone https://github.com/your-username/YoloSAM-SatelliteImage-Detection-Segmentation.git
+git clone https://github.com/rizkiprats/YoloSAM-SatelliteImage-Detection-Segmentation.git
 cd YoloSAM-SatelliteImage-Detection-Segmentation
 ```
 
@@ -190,10 +190,6 @@ YoloSAM-SatelliteImage-Detection-Segmentation/
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 

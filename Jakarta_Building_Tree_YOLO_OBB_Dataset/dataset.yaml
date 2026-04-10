@@ -1,0 +1,7 @@
+names:
+  0: building
+  1: tree
+path: Path to your directory of this dataset folder (example C:\Users\Documents\Jakarta_Building_Tree_YOLO_OBB_Dataset)
+test: test/images
+train: train/images
+val: val/images
