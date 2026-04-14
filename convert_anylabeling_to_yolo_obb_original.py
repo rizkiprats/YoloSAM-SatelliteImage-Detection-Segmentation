@@ -148,13 +148,6 @@ def split_dataset(output_dir, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1, se
     copy_files(val_files, val_dir)
     copy_files(test_files, test_dir)
     
-    # # Salin file classes.txt ke setiap set
-    # for dir_path in [train_dir, val_dir, test_dir]:
-    #     shutil.copy2(
-    #         os.path.join(output_dir, 'classes.txt'),
-    #         os.path.join(dir_path, 'classes.txt')
-    #     )
-    
     # Print statistik
     print(f"\nDataset split complete:")
     print(f"Total files: {n_files}")

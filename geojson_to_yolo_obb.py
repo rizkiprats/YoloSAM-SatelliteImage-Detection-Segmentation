@@ -56,11 +56,6 @@ def convert_geojson_to_yolo_obb_geopandas(geojson_path, geotiff_path, output_txt
     if raster_crs is None:
         raise ValueError("GeoTIFF tidak memiliki CRS!")
     
-    # # Tambahkan ini untuk mengatasi CRS lokal
-    # if not raster_crs.is_projected or not raster_crs.to_epsg():
-    #     print("⚠️ CRS raster tidak standar. Menggunakan EPSG:3857 sebagai fallback.")
-    #     raster_crs = "EPSG:3857"
-    
     # Tambahkan ini untuk mengatasi CRS lokal
     if not raster_crs.to_epsg():
         print("⚠️ CRS raster tidak standar. Menggunakan EPSG:3857 sebagai fallback.")
@@ -106,10 +101,6 @@ def convert_geojson_to_yolo_obb_geopandas(geojson_path, geotiff_path, output_txt
 
             # Konversi world coords ke pixel coords
             pixel_coords = [~transform * (x, y) for x, y in coords]
-            
-            # pixel_coords = MultiPoint(pixel_coords)
-            # min_rect = pixel_coords.minimum_rotated_rectangle
-            # pixel_coords = np.array(min_rect.exterior.coords)[:4]
 
             # Normalisasi ke 0-1
             norm_coords = []
@@ -215,13 +206,6 @@ def split_dataset(output_dir, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1, se
     copy_files(train_files, train_dir)
     copy_files(val_files, val_dir)
     copy_files(test_files, test_dir)
-    
-    # # Salin file classes.txt ke setiap set
-    # for dir_path in [train_dir, val_dir, test_dir]:
-    #     shutil.copy2(
-    #         os.path.join(output_dir, 'classes.txt'),
-    #         os.path.join(dir_path, 'classes.txt')
-    #     )
     
     # Print statistik
     print(f"\nDataset split complete:")
