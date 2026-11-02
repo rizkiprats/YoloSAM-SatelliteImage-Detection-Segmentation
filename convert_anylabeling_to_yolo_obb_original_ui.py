@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QFormLayout,
     QLineEdit, QPushButton, QFileDialog, QHBoxLayout, QMessageBox, QDoubleSpinBox
 )
-from convert_anylabeling_to_yolo_obb_original import process_directory
+from utility.convert_anylabeling_to_yolo_obb_original import process_directory
 
 class ConverterUI(QWidget):
     def __init__(self):
