@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QFormLayout,
     QLineEdit, QPushButton, QFileDialog, QHBoxLayout, QMessageBox, QDoubleSpinBox, QSpinBox, QLabel, QCheckBox
 )
-from geojson_to_yolo_obb import batch_process_geojson_tif
+from utility.geojson_to_yolo_obb import batch_process_geojson_tif
 
 class ConverterAugmentUI(QWidget):
     def __init__(self):

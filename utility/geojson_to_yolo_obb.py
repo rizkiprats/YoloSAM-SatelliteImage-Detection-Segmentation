@@ -1,8 +1,5 @@
 import os
-from convert_anylabeling_to_yolo_obb_augmentation import augment_dataset
-from shapely.geometry import MultiPoint
-import cv2
-import numpy as np
+from utility.convert_anylabeling_to_yolo_obb_augmentation import augment_dataset
 import yaml
 import shutil
 import random
@@ -50,7 +47,7 @@ def convert_geojson_to_yolo_obb_geopandas(geojson_path, geotiff_path, output_txt
     print(f"GeoJSON CRS: {gdf.crs}")
 
     if gdf.crs is None:
-        print("⚠️ CRS GeoJSON tidak ada. Menetapkan EPSG:4326 sebagai default.")
+        print("CRS GeoJSON tidak ada. Menetapkan EPSG:4326 sebagai default.")
         gdf.set_crs("EPSG:4326", inplace=True)
 
     if raster_crs is None:
@@ -58,32 +55,11 @@ def convert_geojson_to_yolo_obb_geopandas(geojson_path, geotiff_path, output_txt
     
     # Tambahkan ini untuk mengatasi CRS lokal
     if not raster_crs.to_epsg():
-        print("⚠️ CRS raster tidak standar. Menggunakan EPSG:3857 sebagai fallback.")
+        print("CRS raster tidak standar. Menggunakan EPSG:3857 sebagai fallback.")
         raster_crs = "EPSG:3857"
         
     # Ubah ke CRS raster agar koordinat cocok dengan ukuran gambar
     gdf = gdf.to_crs(raster_crs)
-
-    # # Mengubah polygon menjadi bounding box 4 titik yang oriented dengan minimum rotasi 
-    # with open(output_txt, 'w') as f:
-    #     for geom in gdf.geometry:
-    #         if not geom.is_valid or geom.is_empty:
-    #             continue
-    #         polygon = geom.simplify(0.5).minimum_rotated_rectangle
-    #         if not isinstance(polygon, shapely.Polygon):
-    #             continue
-    #         coords = list(polygon.exterior.coords)[:4]  # ambil 4 titik saja
-    #         coords = [(x, y) for x, y in coords]
-    #         # Konversi world coords ke pixel coords
-    #         pixel_coords = [~transform * (x, y) for x, y in coords]
-    #         # Normalisasi ke 0-1
-    #         norm_coords = []
-    #         for x, y in pixel_coords:
-    #             norm_coords.append(x / width)
-    #             norm_coords.append(y / height)
-    #         # Pastikan ada 8 nilai (4 titik)
-    #         if len(norm_coords) == 8 and all(0 <= c <= 1 for c in norm_coords):
-    #             f.write(f"0 {' '.join(map(str, norm_coords))}\n")
 
     # # Mempertahankan polygon asli
     with open(output_txt, 'w') as f:
@@ -110,7 +86,6 @@ def convert_geojson_to_yolo_obb_geopandas(geojson_path, geotiff_path, output_txt
 
             # Pastikan semua nilai dalam rentang 0-1
             if all(0 <= c <= 1 for c in norm_coords):
-                # f.write(f"0 {' '.join(map(str, norm_coords))}\n")
                 f.write(f"{index_class} {' '.join(map(str, norm_coords))}\n")
 
 
@@ -169,7 +144,6 @@ def split_dataset(output_dir, train_ratio=0.7, val_ratio=0.2, test_ratio=0.1, se
     image_files = [f for f in os.listdir(images_dir) if f.endswith(('.jpg', '.jpeg', '.png', '.tiff', '.tif'))]
     
     labels_dir = os.path.join(output_dir, 'labels')
-    # label_files = [f for f in os.listdir(labels_dir) if f.endswith(('.txt'))]
     
     # Acak urutan file
     random.shuffle(image_files)
